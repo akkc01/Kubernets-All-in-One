@@ -4,5 +4,5 @@ metadata:
   name: mysql
   labels:
     name: mysql
-    environment: dev
+    environment: development
     team: devops

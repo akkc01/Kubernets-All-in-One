@@ -10,17 +10,18 @@ spec:
   selector:
     matchLabels:
       app: mysql
+      environment: development
   template:
     metadata:
       labels:
         app: mysql
+        environment: development
     spec:
       containers:
       - name: mysql
         image: mysql:8.0
         ports:
         - containerPort: 3306
-
         env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:

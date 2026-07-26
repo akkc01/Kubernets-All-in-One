@@ -7,6 +7,7 @@ spec:
   clusterIP: None   #  headless service
   selector:
     app: mysql
+    environment: development
   ports:
   - name: mysql
     protocol: TCP
