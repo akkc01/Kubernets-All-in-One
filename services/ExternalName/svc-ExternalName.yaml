@@ -2,8 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: external-service
+  namespace: nginx-ns
 spec:
   type: ExternalName
-  externalName: example.com
+  externalName: www.akkc.com
 
 

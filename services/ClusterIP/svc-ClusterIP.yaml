@@ -1,13 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-nodeport-service
+  name: nginx-svc-ClusterIp
+  namespace: nginx-ns
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: nginx
+    environment: dev
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: 31000

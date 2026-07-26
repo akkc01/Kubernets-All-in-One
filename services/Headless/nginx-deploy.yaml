@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: sql-app
+  labels:
+    app: sql-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sql-app
+      environment: dev
+  template:
+    metadata:
+      labels:
+        app: sql-app
+        environment: dev
+    spec:
+      containers:
+      - name: sql-app-container
+        image: sql-app:1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3306
