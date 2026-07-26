@@ -7,10 +7,8 @@ spec:
   podSelector:
     matchLabels:
       app: firefox
-
   policyTypes:
   - Ingress
-
   ingress:
   - ports:
     - protocol: TCP
