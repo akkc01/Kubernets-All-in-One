@@ -1,0 +1,26 @@
+# kubectl create namespace app-nginx
+# kubectl run nginx1n--image=nginx -n app-nginx
+# kubectl expose pod nginx1 --type=ClusterIP --port=80 --target-port=80 --name=pod-service -n app-nginx
+
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: sourav
+    env: bhawani
+  name: sourav
+  namespace: bhawani-manish
+spec:
+  containers:
+  - image: nginx:latest
+    name: sourav
+    ports:
+    - containerPort: 80
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+

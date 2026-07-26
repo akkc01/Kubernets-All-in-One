@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: azuredisk-pv-akkc
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ""
+  persistentVolumeReclaimPolicy: Retain
+
+  csi:
+    driver: disk.csi.azure.com
+    volumeHandle: /subscriptions/8eea2abd-6f2b-46d1-adf4-1e59650cd40e/resourceGroups/stg-test-dev-rg/providers/Microsoft.Compute/disks/disk-test-dev-akkc03
+    fsType: ext4
+    volumeAttributes:
+      kind: Managed
+    

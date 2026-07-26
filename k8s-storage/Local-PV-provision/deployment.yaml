@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: disk-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: disk-app
+
+  template:
+    metadata:
+      labels:
+        app: disk-app
+
+    spec:
+      nodeSelector:
+        disktype: ssd   # make sure node has this label
+
+      containers:
+      - name: app-container
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+
+        volumeMounts:
+        - mountPath: /data
+          name: akkc-storage
+
+      volumes:
+      - name: akkc-storage
+        persistentVolumeClaim:
+          claimName: akkc-pvc
+

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: azurefile-pvc-akkc
+spec:
+  volumeName: azurefile-pv-akkc   #  direct binding (best for static)
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""       # must match PV
+  resources:
+    requests:
+      storage: 50Gi

@@ -1,0 +1,7 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: azure-disk
+provisioner: kubernetes.io/azure-disk   # AKS example
+parameters:
+  skuName: Standard_LRS

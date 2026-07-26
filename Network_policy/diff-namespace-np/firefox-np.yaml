@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: firefox-np # allow-to-nginx-app
+  namespace: firefox-ns
+spec:
+  podSelector:
+    matchLabels:
+      app: firefox-app
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: nginx-ns
+      podSelector:
+        matchLabels:
+          app: nginx-app
+    
+    ports:
+    - protocol: TCP
+      port: 80
+          

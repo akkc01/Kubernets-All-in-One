@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azurefile-app-akkc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: azurefile-app-akkc
+  template:
+    metadata:
+      labels:
+        app: azurefile-app-akkc
+    spec:
+      containers:
+      - name: app-container
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+        volumeMounts:   
+        - name: azure-storage
+          mountPath: usr/share/nginx/html
+
+      volumes:
+      - name: azure-storage
+        persistentVolumeClaim:
+          claimName: azurefile-pvc-akkc
+

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mario
+  namespace: dev
+  labels:
+    app: mario
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mario
+  template:
+    metadata:
+      name: mario
+      labels:
+        app: mario
+    spec:
+      containers:
+      - name: mario
+        image: pengbai/docker-supermario
+        ports:
+        - containerPort: 8080

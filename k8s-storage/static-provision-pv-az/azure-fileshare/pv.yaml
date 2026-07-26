@@ -1,0 +1,41 @@
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: azurefile-pv1
+# spec:
+#   capacity:
+#     storage: 50Gi
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: ""              #  important (no dynamic provisioning)
+#   persistentVolumeReclaimPolicy: Retain
+
+#   azureFile:
+#     secretName: azure-secret
+#     shareName: test-dev-fileshare
+#     readOnly: false
+
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: azurefile-pv-akkc
+spec:
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""
+  persistentVolumeReclaimPolicy: Delete
+
+  csi:
+    driver: file.csi.azure.com
+    volumeHandle: azurefile-pv-akkc        # Must be unique
+    readOnly: false
+    volumeAttributes:
+      shareName: test-dev-fileshare
+    nodeStageSecretRef:
+      name: azure-secret-akkc
+      namespace: default
+
+

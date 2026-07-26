@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: azuredisk-pvc-akkc
+spec:
+  volumeName: azuredisk-pv-akkc  # direct binding
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ""       # must match PV, jo naam pv me wahin pvc me dena padega.
+  resources:
+    requests:
+      storage: 10Gi

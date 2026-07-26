@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+
+metadata:
+  name: demo-job
+  namespace: default
+
+spec:
+  completions: 1        # total successful runs needed
+  parallelism: 2        # pods running at same time
+
+  template:
+    metadata:
+      labels:
+        app: batch-task
+
+    spec:
+      containers:
+      - name: worker
+        image: busybox:latest
+        imagePullPolicy: IfNotPresent
+        command: ["sh", "-c", "echo Hello && sleep 5"]
+
+      restartPolicy: OnFailure

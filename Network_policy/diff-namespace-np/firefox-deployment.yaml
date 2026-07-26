@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: firefox-deployment
+  namespace: firefox-ns
+  labels:
+    app: firefox-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: firefox-app
+  template:
+    metadata:
+      name: firefox-app
+      labels:
+        app: firefox-app
+    spec:
+      containers:
+      - name: firefox
+        image: linuxserver/firefox
+        ports:
+        - containerPort: 3001

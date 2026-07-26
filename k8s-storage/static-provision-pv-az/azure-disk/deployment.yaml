@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-app-akkc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: disk-app-akkc
+  template:
+    metadata:
+      labels:
+        app: disk-app-akkc
+    spec:
+      containers:
+      - name: app-container-akkc
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+        volumeMounts:
+        - name: disk-volume
+          mountPath: /data
+
+      volumes:
+      - name: disk-volume
+        persistentVolumeClaim:
+          claimName: azuredisk-pvc-akkc

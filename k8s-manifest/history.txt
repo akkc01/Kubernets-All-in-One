@@ -1,0 +1,16 @@
+ 1344  kubectl apply -f nginx.yaml
+ 1345  kubectl get pod,svc -n nginx-ns
+ 1346  kubectl get nodes
+ 1347  kubectl get pods -o wide
+ 1348  kubectl get pods -o wide -n nginx-ns
+ 1349  kubectl apply -f nginx.yaml
+ 1350  kubectl get pods -o wide -n nginx-ns
+ 1351  kubectl get pods -o wide -n nginx-ns
+ 1352  kubectl get pods -o wide -n nginx-ns
+ 1353  kubectl get pods -n nginx-ns
+ 1354  kubectl delete pod nginx-daemonset-7446d -n nginx-ns
+ 1355  kubectl get pods -n nginx-ns
+ 1356  kubectl delete pod nginx-deployment-cc7dd8746-6qrph -n nginx-ns
+ 1357  kubectl get pods -n nginx-ns
+ 1358  history
+ 1359  history

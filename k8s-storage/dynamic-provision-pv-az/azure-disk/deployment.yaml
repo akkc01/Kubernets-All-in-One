@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: disk-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: disk-app
+  template:
+    metadata:
+      labels:
+        app: disk-app
+    spec:
+      containers:
+      - name: nginx-app
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+            
+        volumeMounts:   
+        - mountPath: /App-Data
+          name: disk-volume
+
+      volumes:          
+      - name: disk-volume
+        persistentVolumeClaim:
+          claimName: disk-pvc
+
+

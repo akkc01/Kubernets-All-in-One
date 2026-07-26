@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fileshare-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fileshare-app
+  template:
+    metadata:
+      labels:
+        app: fileshare-app
+    spec:
+      containers:
+      - name: app-container
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+
+        volumeMounts:   
+        - mountPath: /App-Data
+          name: disk-volume
+
+      volumes:          
+      - name: disk-volume
+        persistentVolumeClaim:
+          claimName: fileshare-pvc

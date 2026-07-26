@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: firefox-policy
+  namespace: dev
+spec:
+  podSelector:
+    matchLabels:
+      app: firefox
+
+  policyTypes:
+  - Ingress
+
+  ingress:
+  - ports:
+    - protocol: TCP
+      port: 3001

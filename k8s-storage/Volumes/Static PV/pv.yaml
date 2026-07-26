@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: local-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: my-mac-storage
+  local:
+    path: /Users/amitkumar/Documents/akkc_portfolio
+
+  # nodeAffinity:
+  #   required:
+  #     nodeSelectorTerms:
+  #     - matchExpressions:
+  #       - key: kubernetes.io/hostname
+  #         operator: In
+  #         values:
+  #         - <your-node-name>
