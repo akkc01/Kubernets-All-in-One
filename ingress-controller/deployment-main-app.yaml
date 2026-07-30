@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: main-app-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: main-app
+  template:
+    metadata:
+      labels:
+        app: main-app
+    spec:
+      containers:
+      - name: main-app
+        image: hashicorp/http-echo:0.2.3
+        args:
+        - "-text=Hello from Main App"
+        ports:
+        - containerPort: 5678
