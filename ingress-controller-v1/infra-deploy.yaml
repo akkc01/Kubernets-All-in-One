@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: infra-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: infra-app
