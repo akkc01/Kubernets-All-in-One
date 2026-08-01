@@ -1,32 +1,76 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: demo-ingress
+  name: infra-ingress
 spec:
   ingressClassName: nginx
   rules:
-  - http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: main-app-service
-            port:
-              number: 80
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: infra-service
+                port:
+                  number: 80
 
-      - path: /app1
-        pathType: Prefix
-        backend:
-          service:
-            name: app1-service
-            port:
-              number: 80
+          - path: /vm
+            pathType: Prefix
+            backend:
+              service:
+                name: vm-service
+                port:
+                  number: 80
 
-      - path: /app2
-        pathType: Prefix
-        backend:
-          service:
-            name: app2-service
-            port:
-              number: 80
+          - path: /storage
+            pathType: Prefix
+            backend:
+              service:
+                name: stg-service
+                port:
+                  number: 80
+
+
+# ---
+
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: rahul-ingress
+# spec:
+#   ingressClassName: nginx
+
+#   rules:
+#     - host: rahulinfra.com
+#       http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: rahul-service
+#                 port:
+#                   number: 80
+
+#     - host: vm.rahulinfra.com
+#       http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: vm-service
+#                 port:
+#                   number: 80
+
+#     - host: stg.rahulinfra.com
+#       http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: stg-service
+#                 port:
+#                   number: 80
