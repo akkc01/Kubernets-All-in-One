@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: akkc-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: akkc-app
+  template:
+    metadata:
+      labels:
+        app: akkc-app
+    spec:
+      containers:
+      - name: akkc-app
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: akkc-html
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: akkc-html
+        configMap:
+          name: akkc-html

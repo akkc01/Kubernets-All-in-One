@@ -32,7 +32,6 @@
 #                   number: 80
 
 
----
 
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -69,3 +68,5 @@ spec:
                 name: infra-service
                 port:
                   number: 80
+
+

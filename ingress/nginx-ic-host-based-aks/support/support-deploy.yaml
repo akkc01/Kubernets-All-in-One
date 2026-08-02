@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: support-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: support-app
+  template:
+    metadata:
+      labels:
+        app: support-app
+    spec:
+      containers:
+      - name: support-app
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: support-app-html
+          mountPath: /usr/share/nginx/html
+      # AGIC rewrite nahi karta (NGINX annotation ki tarah). issi liye volumes me items se map kar rhe hn aur ek folder(/vm) me index.html ko rakh rhe hn. taki AGIC rewrite kar sake.
+      volumes:
+      - name: support-app-html
+        configMap:
+          name: support-app-html
