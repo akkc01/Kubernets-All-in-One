@@ -1,34 +1,25 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: akkc-gateway
-  labels:
-    app: akkc
-  
----
-
-apiVersion: v1
-kind: Namespace
-metadata:
   name: akkc-main-app
   labels:
-    app: akkc-main-app
-  
+    gateway-access: "true"
 ---
-
 apiVersion: v1
 kind: Namespace
 metadata:
   name: akkc-app1
   labels:
-    app: akkc-app1
-
+    gateway-access: "true"
 ---
-
 apiVersion: v1
 kind: Namespace
 metadata:
   name: akkc-app2
   labels:
-    app: akkc-app2
-  
+    gateway-access: "true"
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: akkc-gateway

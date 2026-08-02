@@ -11,8 +11,16 @@ spec:
       protocol: HTTP
       port: 80
 
+      # allowedRoutes:
+      #   namespaces:
+      #     from: All
+      
+      # it is more secure to use Selector instead of All, so that only the selected namespaces can access the gateway
       allowedRoutes:
         namespaces:
-          from: All
+          from: Selector
+          selector:
+            matchLabels:
+              gateway-access: "true"
 
           

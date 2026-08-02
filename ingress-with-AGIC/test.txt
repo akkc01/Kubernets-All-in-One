@@ -1,0 +1,96 @@
+az aks show \
+-g aks-rg \
+-n g2-aks \
+-o table
+
+
+
+az aks show \
+-g aks-rg \
+-n g2-aks \
+--query networkProfile
+
+
+az aks show \
+-g aks-rg \
+-n g2-aks \
+--query agentPoolProfiles[0].vnetSubnetID \
+-o tsv
+
+aks-rg
+MC_aks-rg_g2-aks_eastus
+vnet-- aks-vnet-16060484
+subnet-- aks-subnet
+
+
+
+az group create \
+  --name network-rg \
+  --location eastus
+
+az network vnet subnet create \
+-g MC_aks-rg_g2-aks_eastus \
+--vnet-name aks-vnet-16060484 \
+-n appgw-subnet \
+--address-prefixes 10.225.0.0/24
+
+
+az network public-ip create \
+-g MC_aks-rg_g2-aks_eastus \
+-n appgw-pip \
+--sku Standard
+
+
+
+
+az network application-gateway create \
+-g MC_aks-rg_g2-aks_eastus \
+-n appgw01 \
+--sku Standard_v2 \
+--capacity 1 \
+--public-ip-address appgw-pip \
+--vnet-name aks-vnet-16060484 \
+--subnet appgw-subnet
+
+
+
+APPGW_ID=$(az network application-gateway show \
+-g network-rg \
+-n appgw01 \
+--query id -o tsv)
+
+az aks enable-addons \
+-g aks-rg \
+-n g2-aks \
+--addons ingress-appgw \
+--appgw-id $APPGW_ID
+
+
+az role assignment create \
+  --assignee-object-id 2db17b5e-c7cb-46e2-8064-427f2cfe2e13 \
+  --assignee-principal-type ServicePrincipal \
+  --role Reader \
+  --scope /subscriptions/id/resourceGroups/network-rg
+
+
+
+
+  az role assignment create \
+  --assignee-object-id 2db17b5e-c7cb-46e2-8064-427f2cfe2e13 \
+  --assignee-principal-type ServicePrincipal \
+  --role Contributor \
+  --scope /subscriptions/id/resourceGroups/network-rg/providers/Microsoft.Network/applicationGateways/appGW01
+
+
+az role assignment create \
+  --assignee-object-id 2db17b5e-c7cb-46e2-8064-427f2cfe2e13 \
+  --assignee-principal-type ServicePrincipal \
+  --role Reader \
+  --scope /subscriptions/id/resourceGroups/network-rg
+
+
+amitkumar@Akkc-MacBook ~ % kubectl get ingressclass
+NAME                        CONTROLLER                  PARAMETERS   AGE
+azure-application-gateway   azure/application-gateway   <none>       13m
+nginx                       k8s.io/ingress-nginx        <none>       11h
+amitkumar@Akkc-MacBook ~ %
