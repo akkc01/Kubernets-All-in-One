@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: vm-deployment
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     matchLabels:
       app: vm-app
@@ -17,6 +17,15 @@ spec:
         image: nginx:latest
         ports:
         - containerPort: 80
+
+        resources:
+          requests:
+            cpu: "2000m"
+            memory: "128Mi"
+          limits:
+            cpu: "3000m"
+            memory: "256Mi"
+
         volumeMounts:
         - name: vm-app-html
           mountPath: /usr/share/nginx/html

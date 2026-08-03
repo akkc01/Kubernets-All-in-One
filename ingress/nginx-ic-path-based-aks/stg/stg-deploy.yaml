@@ -17,6 +17,15 @@ spec:
         image: nginx:latest
         ports:
         - containerPort: 80
+
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+
         volumeMounts:
         - name: stg-app-html
           mountPath: /usr/share/nginx/html
