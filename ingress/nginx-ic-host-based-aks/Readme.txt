@@ -9,9 +9,7 @@ helm install nginx-custom ingress-nginx/ingress-nginx \
   --set controller.controllerClass="k8s.io/ingress-nginx-akkc"
 
 
-
   kubectl delete ingress --all -n default
-
 
 
 az network lb list -g MC_aks-rg_aks-tets_eastus -o table
@@ -28,6 +26,9 @@ kubectl get svc ingress-nginx-controller -n ingress-nginx -o jsonpath='{.metadat
 {"meta.helm.sh/release-name":"ingress-nginx","meta.helm.sh/release-namespace":"ingress-nginx","service.beta.kubernetes.io/azure-load-balancer-health-probe-request-path":"/healthz"}%
 
 
+
+---------------------------------
+ye sab tab karna pad raha hai jab Azure Load Balancer ka health probe ingress-nginx ko healthy detect nahi kar paa raha.
 
 -------------
 Option 1:  externalTrafficPolicy ko Local set karo. Ye AKS + ingress-nginx ka official recommended solution hai.

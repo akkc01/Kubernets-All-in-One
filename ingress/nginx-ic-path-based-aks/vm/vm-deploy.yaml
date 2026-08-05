@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: vm-deployment
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       app: vm-app
@@ -20,10 +20,10 @@ spec:
 
         resources:
           requests:
-            cpu: "2000m"
+            cpu: "200m"
             memory: "128Mi"
           limits:
-            cpu: "3000m"
+            cpu: "300m"
             memory: "256Mi"
 
         volumeMounts:

@@ -1,0 +1,23 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: pod-reader-binding
+  namespace: service-account
+
+
+subjects:
+- kind: ServiceAccount
+  name: dev-app-sa
+  namespace: service-account
+
+
+# - kind: User
+#   name: user@company.com   
+#  # ya Object ID (cluster configuration par depend karta hai)
+#   apiGroup: rbac.authorization.k8s.io
+
+
+roleRef:
+  kind: Role
+  name: pod-reader-role
+  apiGroup: rbac.authorization.k8s.io

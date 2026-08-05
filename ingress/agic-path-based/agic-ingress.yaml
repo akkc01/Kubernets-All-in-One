@@ -24,3 +24,11 @@ spec:
                 name: stg-service
                 port:
                   number: 80
+          
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: infra-service
+                port:
+                  number: 80
