@@ -1,0 +1,32 @@
+service:
+  name: infra-service
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+
+selector:
+  app: infra-app
+
+replicaCount: 4
+
+image:
+  repository: nginx
+  tag: latest
+  pullPolicy: IfNotPresent
+
+app:
+  name: infra-app
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "500m"
+    memory: "256Mi"
+
+
+volume:
+  name: infra-html
+  configMapName: infra-html
+  mountPath: /usr/share/nginx/html

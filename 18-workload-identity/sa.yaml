@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: akkc-pod-sa
+  namespace: akkc
+  annotations:
+    azure.workload.identity/client-id: "95251e3e-a73e-42c9-b84a-d3c1b85e6fc0"
+
+

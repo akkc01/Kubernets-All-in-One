@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: kv-test-env-deployment
+  namespace: akkc
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: kv-test-env
+
+  template:
+    metadata:
+      labels:
+        app: kv-test-env
+        azure.workload.identity/use: "true"
+
+    spec:
+      serviceAccountName: akkc-pod-sa
+
+      containers:
+        - name: app
+          image: nginx
+
+          env:
+            - name: LOVE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: kv-secret
+                  key: LOVE_SECRET
+
+            - name: HATE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: kv-secret
+                  key: HATE_SECRET
+
+          volumeMounts:
+            - name: secrets-store
+              mountPath: /mnt/secrets
+              readOnly: true
+
+      volumes:
+        - name: secrets-store
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: azure-kv
