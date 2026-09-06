@@ -1,0 +1,198 @@
+GROUP:      autoscaling
+KIND:       HorizontalPodAutoscaler
+VERSION:    v2
+
+DESCRIPTION:
+    HorizontalPodAutoscaler is the configuration for a horizontal pod
+    autoscaler, which automatically manages the replica count of any resource
+    implementing the scale subresource based on the metrics specified.
+    
+FIELDS:
+  apiVersion	<string>
+  kind	<string>
+  metadata	<ObjectMeta>
+    annotations	<map[string]string>
+    creationTimestamp	<string>
+    deletionGracePeriodSeconds	<integer>
+    deletionTimestamp	<string>
+    finalizers	<[]string>
+    generateName	<string>
+    generation	<integer>
+    labels	<map[string]string>
+    managedFields	<[]ManagedFieldsEntry>
+      apiVersion	<string>
+      fieldsType	<string>
+      fieldsV1	<FieldsV1>
+      manager	<string>
+      operation	<string>
+      subresource	<string>
+      time	<string>
+    name	<string>
+    namespace	<string>
+    ownerReferences	<[]OwnerReference>
+      apiVersion	<string> -required-
+      blockOwnerDeletion	<boolean>
+      controller	<boolean>
+      kind	<string> -required-
+      name	<string> -required-
+      uid	<string> -required-
+    resourceVersion	<string>
+    selfLink	<string>
+    uid	<string>
+  spec	<HorizontalPodAutoscalerSpec>
+    behavior	<HorizontalPodAutoscalerBehavior>
+      scaleDown	<HPAScalingRules>
+        policies	<[]HPAScalingPolicy>
+          periodSeconds	<integer> -required-
+          type	<string> -required-
+          value	<integer> -required-
+        selectPolicy	<string>
+        stabilizationWindowSeconds	<integer>
+        tolerance	<Quantity>
+      scaleUp	<HPAScalingRules>
+        policies	<[]HPAScalingPolicy>
+          periodSeconds	<integer> -required-
+          type	<string> -required-
+          value	<integer> -required-
+        selectPolicy	<string>
+        stabilizationWindowSeconds	<integer>
+        tolerance	<Quantity>
+    maxReplicas	<integer> -required-
+    metrics	<[]MetricSpec>
+      containerResource	<ContainerResourceMetricSource>
+        container	<string> -required-
+        name	<string> -required-
+        target	<MetricTarget> -required-
+          averageUtilization	<integer>
+          averageValue	<Quantity>
+          type	<string> -required-
+          value	<Quantity>
+      external	<ExternalMetricSource>
+        metric	<MetricIdentifier> -required-
+          name	<string> -required-
+          selector	<LabelSelector>
+            matchExpressions	<[]LabelSelectorRequirement>
+              key	<string> -required-
+              operator	<string> -required-
+              values	<[]string>
+            matchLabels	<map[string]string>
+        target	<MetricTarget> -required-
+          averageUtilization	<integer>
+          averageValue	<Quantity>
+          type	<string> -required-
+          value	<Quantity>
+      object	<ObjectMetricSource>
+        describedObject	<CrossVersionObjectReference> -required-
+          apiVersion	<string>
+          kind	<string> -required-
+          name	<string> -required-
+        metric	<MetricIdentifier> -required-
+          name	<string> -required-
+          selector	<LabelSelector>
+            matchExpressions	<[]LabelSelectorRequirement>
+              key	<string> -required-
+              operator	<string> -required-
+              values	<[]string>
+            matchLabels	<map[string]string>
+        target	<MetricTarget> -required-
+          averageUtilization	<integer>
+          averageValue	<Quantity>
+          type	<string> -required-
+          value	<Quantity>
+      pods	<PodsMetricSource>
+        metric	<MetricIdentifier> -required-
+          name	<string> -required-
+          selector	<LabelSelector>
+            matchExpressions	<[]LabelSelectorRequirement>
+              key	<string> -required-
+              operator	<string> -required-
+              values	<[]string>
+            matchLabels	<map[string]string>
+        target	<MetricTarget> -required-
+          averageUtilization	<integer>
+          averageValue	<Quantity>
+          type	<string> -required-
+          value	<Quantity>
+      resource	<ResourceMetricSource>
+        name	<string> -required-
+        target	<MetricTarget> -required-
+          averageUtilization	<integer>
+          averageValue	<Quantity>
+          type	<string> -required-
+          value	<Quantity>
+      type	<string> -required-
+    minReplicas	<integer>
+    scaleTargetRef	<CrossVersionObjectReference> -required-
+      apiVersion	<string>
+      kind	<string> -required-
+      name	<string> -required-
+  status	<HorizontalPodAutoscalerStatus>
+    conditions	<[]HorizontalPodAutoscalerCondition>
+      lastTransitionTime	<string>
+      message	<string>
+      reason	<string>
+      status	<string> -required-
+      type	<string> -required-
+    currentMetrics	<[]MetricStatus>
+      containerResource	<ContainerResourceMetricStatus>
+        container	<string> -required-
+        current	<MetricValueStatus> -required-
+          averageUtilization	<integer>
+          averageValue	<Quantity>
+          value	<Quantity>
+        name	<string> -required-
+      external	<ExternalMetricStatus>
+        current	<MetricValueStatus> -required-
+          averageUtilization	<integer>
+          averageValue	<Quantity>
+          value	<Quantity>
+        metric	<MetricIdentifier> -required-
+          name	<string> -required-
+          selector	<LabelSelector>
+            matchExpressions	<[]LabelSelectorRequirement>
+              key	<string> -required-
+              operator	<string> -required-
+              values	<[]string>
+            matchLabels	<map[string]string>
+      object	<ObjectMetricStatus>
+        current	<MetricValueStatus> -required-
+          averageUtilization	<integer>
+          averageValue	<Quantity>
+          value	<Quantity>
+        describedObject	<CrossVersionObjectReference> -required-
+          apiVersion	<string>
+          kind	<string> -required-
+          name	<string> -required-
+        metric	<MetricIdentifier> -required-
+          name	<string> -required-
+          selector	<LabelSelector>
+            matchExpressions	<[]LabelSelectorRequirement>
+              key	<string> -required-
+              operator	<string> -required-
+              values	<[]string>
+            matchLabels	<map[string]string>
+      pods	<PodsMetricStatus>
+        current	<MetricValueStatus> -required-
+          averageUtilization	<integer>
+          averageValue	<Quantity>
+          value	<Quantity>
+        metric	<MetricIdentifier> -required-
+          name	<string> -required-
+          selector	<LabelSelector>
+            matchExpressions	<[]LabelSelectorRequirement>
+              key	<string> -required-
+              operator	<string> -required-
+              values	<[]string>
+            matchLabels	<map[string]string>
+      resource	<ResourceMetricStatus>
+        current	<MetricValueStatus> -required-
+          averageUtilization	<integer>
+          averageValue	<Quantity>
+          value	<Quantity>
+        name	<string> -required-
+      type	<string> -required-
+    currentReplicas	<integer>
+    desiredReplicas	<integer> -required-
+    lastScaleTime	<string>
+    observedGeneration	<integer>
+

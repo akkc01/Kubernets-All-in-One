@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: dev-application-quota
+  namespace: dev
+
+spec:
+  hard:
+    # Total number of Pods allowed in this namespace
+    pods: "25"
+    
+    # Total CPU requested by all Pods
+    requests.cpu: "2"
+
+    # Total memory requested by all Pods
+    requests.memory: 2Gi
+
+    # Total CPU limits
+    limits.cpu: "3"
+
+    # Total memory limits
+    limits.memory: 3.5Gi

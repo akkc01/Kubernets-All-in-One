@@ -1,0 +1,217 @@
+# apiVersion: autoscaling/v2
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: nginx-hpa
+#   namespace: nginx
+
+# spec:
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: nginx-deployment   #  target deployment
+  
+#   minReplicas: 2
+#   maxReplicas: 6
+
+#   metrics:
+#     - type: Resource
+#       resource:
+#         name: cpu
+#         target:
+#           type: Utilization
+#           averageUtilization: 50   #  target CPU %
+
+
+---
+
+# apiVersion: autoscaling/v2
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: stress-app-hpa
+# spec:
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: stress-app
+
+#   minReplicas: 1
+#   maxReplicas: 10
+
+#   metrics:
+#   - type: Resource
+#     resource:
+#       name: cpu
+#       target:
+#         type: Utilization
+#         averageUtilization: 50
+
+#   - type: Resource
+#     resource:
+#       name: cpu
+#       target:
+#         type: AverageValue
+#         averageValue: 155m   # Har Pod ka average CPU usage approximately 300m ke aas-paas maintain karna.
+
+#   - type: Resource
+#     resource:
+#       name: memory
+#       target:
+#         type: Utilization
+#         averageUtilization: 70
+
+#   - type: Resource
+#     resource:
+#       name: memory
+#       target:
+#         type: AverageValue
+#         averageValue: 190Mi
+
+---
+
+# # apiVersion: autoscaling/v2
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: stress-app-hpa
+
+# spec:
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: stress-app
+
+#   minReplicas: 1
+#   maxReplicas: 10
+
+#   behavior:
+#     # SCALE UP
+#     scaleUp:
+#       stabilizationWindowSeconds: 0
+#       policies:
+#       - type: Percent
+#         value: 100
+#         periodSeconds: 60
+
+#       - type: Pods
+#         value: 4
+#         periodSeconds: 60
+
+#       selectPolicy: Max
+
+#     # SCALE DOWN
+#     scaleDown:
+#       stabilizationWindowSeconds: 300
+#       policies:
+#       - type: Percent
+#         value: 25
+#         periodSeconds: 60
+
+#       - type: Pods
+#         value: 2
+#         periodSeconds: 60
+
+#       selectPolicy: Min
+
+#   metrics:
+#   # CPU - Utilization
+#   - type: Resource
+#     resource:
+#       name: cpu
+#       target:
+#         type: Utilization
+#         averageUtilization: 50
+
+#   # CPU - Average Value
+#   - type: Resource
+#     resource:
+#       name: cpu
+#       target:
+#         type: AverageValue
+#         averageValue: 155m
+
+#   # Memory - Utilization
+#   - type: Resource
+#     resource:
+#       name: memory
+#       target:
+#         type: Utilization
+#         averageUtilization: 70
+
+#   # Memory - Average Value
+#   - type: Resource
+#     resource:
+#       name: memory
+#       target:
+#         type: AverageValue
+#         averageValue: 190Mi
+
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: stress-app-hpa
+  namespace: dev
+
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: stress-app-dev-deployment
+
+  # Keep enough replicas for availability
+  minReplicas: 2
+  maxReplicas: 10
+
+  metrics:
+    # CPU-based scaling
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+
+    # Memory-based scaling
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 75
+
+  behavior:
+    # SCALE UP
+    scaleUp:
+      # Don't delay scale-up when load increases
+      stabilizationWindowSeconds: 0
+      policies:
+        # Can double the number of Pods
+        - type: Percent
+          value: 100
+          periodSeconds: 60
+
+        # But don't add more than 4 Pods in 60 sec
+        - type: Pods
+          value: 4
+          periodSeconds: 60
+      # Choose the more aggressive policy
+      selectPolicy: Max
+
+
+
+    # SCALE DOWN
+    scaleDown:
+      # Wait for sustained low load
+      stabilizationWindowSeconds: 300
+      policies:
+        # Remove max 25% per minute
+        - type: Percent
+          value: 25
+          periodSeconds: 60
+
+        # Remove max 2 Pods per minute
+        - type: Pods
+          value: 2
+          periodSeconds: 60
+      # Choose the more conservative policy
+      selectPolicy: Min
