@@ -1,0 +1,52 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: nginx1-route
+  namespace: agc-demo
+
+spec:
+  parentRefs:
+    - name: agc-gateway
+
+  hostnames:
+    - nginx1.theakkc.space
+
+  rules:
+    - backendRefs:
+        - name: nginx-1
+          port: 80
+
+
+# ---
+# apiVersion: gateway.networking.k8s.io/v1
+# kind: HTTPRoute
+# metadata:
+#   name: nginx-route
+#   namespace: agc-demo
+
+# spec:
+#   parentRefs:
+#     - name: agc-gateway
+
+#   hostnames:
+#     - nginx1.theakkc.space
+#     - nginx2.theakkc.space
+
+#   rules:
+#     # nginx-1
+#     - matches:
+#         - headers:
+#             - name: Host
+#               value: nginx1.theakkc.space
+#       backendRefs:
+#         - name: nginx-1
+#           port: 80
+
+#     # nginx-2
+#     - matches:
+#         - headers:
+#             - name: Host
+#               value: nginx2.theakkc.space
+#       backendRefs:
+#         - name: nginx-2
+#           port: 80
