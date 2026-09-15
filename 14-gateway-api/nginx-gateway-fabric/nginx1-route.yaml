@@ -2,11 +2,11 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   name: nginx1-route
-  namespace: agc-test
+  namespace: ngf-test
 
 spec:
   parentRefs:
-    - name: agc-gateway
+    - name: nginx-gateway
 
   hostnames:
     - nginx1.theakkc.space
