@@ -5,4 +5,4 @@ metadata:
   namespace: agc-test
 spec:
   associations:
-  - /subscriptions/b8e77924-89da-41ce-8257-846989faab77/resourceGroups/MC_aks-gateway-api-test_aks-gateway-api_koreacentral/providers/Microsoft.Network/virtualNetworks/aks-vnet-10218664/subnets/alb-subnet
+  - /subscriptions/b8e77924-89da-41ce-8257-846989faab77/resourceGroups/MC_aks-test-rg_aks-test_koreacentral/providers/Microsoft.Network/virtualNetworks/aks-vnet-30099824/subnets/alb-subnet

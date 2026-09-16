@@ -22,6 +22,6 @@ spec:
             - /bin/sh
             - -c
             - |
-              echo '<h1>NGINX 2</h1><p>Traffic reached nginx-2</p>' > /usr/share/nginx/html/index.html
+              echo '<h1>Welcome to Prod nginx-server from Nginx Gateway Fabric</h1><p>Traffic reached nginx-2</p>' > /usr/share/nginx/html/index.html
               nginx -g 'daemon off;'
 

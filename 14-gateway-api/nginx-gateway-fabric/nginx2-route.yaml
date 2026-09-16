@@ -9,7 +9,7 @@ spec:
     - name: nginx-gateway
 
   hostnames:
-    - nginx2.theakkc.space
+    - prod.nginx.theakkc.space
 
   rules:
     - backendRefs:

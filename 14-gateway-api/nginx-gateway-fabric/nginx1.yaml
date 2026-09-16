@@ -22,7 +22,7 @@ spec:
             - /bin/sh
             - -c
             - |
-              echo '<h1>NGINX 1</h1><p>Traffic reached nginx-1</p>' > /usr/share/nginx/html/index.html
+              echo '<h1>Welcome to Dev nginx-server from Nginx Gateway Fabric</h1><p>Traffic reached nginx-1</p>' > /usr/share/nginx/html/index.html
               nginx -g 'daemon off;'
-              
+                        
 
