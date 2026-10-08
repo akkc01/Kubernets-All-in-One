@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: configmap-env
+
+data:
+  APP_NAME: "My NGINX Application"
+  ENVIRONMENT: "DEV"
+  MESSAGE: "Hello from Kubernetes ConfigMap"

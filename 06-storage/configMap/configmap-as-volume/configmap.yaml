@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-html
+  namespace: configmap-vlm
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>NGINX ConfigMap</title>
+    </head>
+    <body>
+      <h1>Welcome to DevOps Junoon</h1>
+      <h2>Hi dear friend, kaise hain aap?</h2>
+      <h3>Welcome to ConfigMap Doston.....</h3>
+    </body>
+    </html>
