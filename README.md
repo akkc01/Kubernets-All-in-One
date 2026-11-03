@@ -1,16 +1,16 @@
 # ☸️ Kubernetes-AIO | Kubernetes All-in-One Learning Repository
 
-\<p align="center">\
-&#x20; \<img src="[https://img.shields.io/badge/Kubernetes-Learning-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white](https://img.shields.io/badge/Kubernetes-Learning-326CE5?style=for-the-badge\&logo=kubernetes\&logoColor=white)" />\
-&#x20; \<img src="[https://img.shields.io/badge/Azure-AKS-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white](https://img.shields.io/badge/Azure-AKS-0078D4?style=for-the-badge\&logo=microsoftazure\&logoColor=white)" />\
-&#x20; \<img src="[https://img.shields.io/badge/Docker-Containers-2496ED?style=for-the-badge&logo=docker&logoColor=white](https://img.shields.io/badge/Docker-Containers-2496ED?style=for-the-badge\&logo=docker\&logoColor=white)" />\
-&#x20; \<img src="[https://img.shields.io/badge/Helm-Kubernetes%20Package%20Manager-0F1689?style=for-the-badge&logo=helm&logoColor=white](https://img.shields.io/badge/Helm-Kubernetes%20Package%20Manager-0F1689?style=for-the-badge\&logo=helm\&logoColor=white)" />\
-&#x20; \<img src="[https://img.shields.io/badge/GitOps-ArgoCD-EF7B4D?style=for-the-badge&logo=argo&logoColor=white](https://img.shields.io/badge/GitOps-ArgoCD-EF7B4D?style=for-the-badge\&logo=argo\&logoColor=white)" />\
-\</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/Kubernetes-Learning-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white" alt="Kubernetes Learning" />
+  <img src="https://img.shields.io/badge/Azure-AKS-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white" alt="Azure AKS" />
+  <img src="https://img.shields.io/badge/Docker-Containers-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker Containers" />
+  <img src="https://img.shields.io/badge/Helm-Kubernetes%20Package%20Manager-0F1689?style=for-the-badge&logo=helm&logoColor=white" alt="Helm" />
+  <img src="https://img.shields.io/badge/GitOps-ArgoCD-EF7B4D?style=for-the-badge&logo=argo&logoColor=white" alt="ArgoCD" />
+</p>
 
-\<p align="center">\
-&#x20; \<b>Learn Kubernetes from Fundamentals to Production-Level Implementation.\</b>\
-\</p>
+<p align="center">
+  <b>Learn Kubernetes from Fundamentals to Production-Level Implementation.</b>
+</p>
 
 ---
 
