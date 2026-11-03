@@ -1,7 +1,3 @@
-# kubectl create namespace app-nginx
-# kubectl run nginx1n--image=nginx -n app-nginx
-# kubectl expose pod nginx1 --type=ClusterIP --port=80 --target-port=80 --name=pod-service -n app-nginx
-
 apiVersion: v1
 kind: Pod
 metadata:
