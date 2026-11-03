@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: azurefile-pvc-akkc
+  name: azfs-pvc-test
 spec:
-  volumeName: azurefile-pv-akkc   #  direct binding (best for static)
+  volumeName: azfs-pv-test   #  direct binding (best for static)
   accessModes:
     - ReadWriteMany
-  storageClassName: ""       # must match PV
+  storageClassName: "akkc01"       # must match with PV
   resources:
     requests:
-      storage: 50Gi
+      storage: 60Gi

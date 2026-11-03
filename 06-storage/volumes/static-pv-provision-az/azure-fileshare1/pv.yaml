@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: azurefile-pv-akkc
+  
+spec:
+  capacity:
+    storage: 500Gi
+
+  accessModes:
+    - ReadWriteMany
+  storageClassName: "akkcfileshare"
+  persistentVolumeReclaimPolicy: "Retain"
+
+  csi:
+    driver: file.csi.azure.com
+    volumeHandle: azurefile-pv-akkc        # Must be unique
+    readOnly: false
+    volumeAttributes:
+      shareName: pvfileshare
+    nodeStageSecretRef:
+      name: azstg-secret
+      namespace: pvtest
+
+

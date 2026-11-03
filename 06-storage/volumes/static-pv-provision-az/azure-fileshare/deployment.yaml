@@ -31,5 +31,5 @@ spec:
       volumes:
       - name: azure-storage
         persistentVolumeClaim:
-          claimName: azurefile-pvc-akkc
+          claimName: azfs-pvc-test
 

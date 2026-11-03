@@ -1,35 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp-deploy2
+  name: azfileshare-nginx-deployment
+  namespace: pvtest
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: myapp
-      app1: nginx
+      app: azurefile-app-akkc
   template:
     metadata:
       labels:
-        app: myapp
-        app1: nginx
-        app2: dev
-        app3: test
-        app4: prod
-
+        app: azurefile-app-akkc
     spec:
       containers:
-      - name: nginx-container
+      - name: app-container
         image: nginx:latest
         ports:
         - containerPort: 80
         resources:
           requests:
-            memory: "64Mi"
-            cpu: "250m"
-          limits:
+            cpu: "100m"
             memory: "128Mi"
-            cpu: "500m"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
         volumeMounts:   
         - name: azure-storage
           mountPath: usr/share/nginx/html
@@ -38,3 +33,4 @@ spec:
       - name: azure-storage
         persistentVolumeClaim:
           claimName: azurefile-pvc-akkc
+
