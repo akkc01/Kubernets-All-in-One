@@ -1,9 +1,3 @@
-Got it bro. You need a standalone `README.md` explaining Azure Workload Identity, starting with what it is, why we need it, how authentication works, and how to configure it on an existing AKS cluster.
-
-You can directly copy this into your GitHub repository.
-
-# Azure Workload Identity with AKS
-
 ## 1. What is Azure Workload Identity?
 
 Azure Workload Identity is a passwordless authentication mechanism that allows applications running inside Azure Kubernetes Service (AKS) to securely access Azure resources.
