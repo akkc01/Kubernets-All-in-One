@@ -7,9 +7,12 @@ parameters:
   skuName: Standard_LRS
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
-mountOptions:
-  - dir_mode=0777
-  - file_mode=0777
+# mountOptions:
+#   - dir_mode=0770
+#   - file_mode=0660
+#   - uid=1000
+#   - gid=1000
+#   - actimeo=30
 
 
   

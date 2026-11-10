@@ -27,7 +27,7 @@ spec:
             memory: "256Mi"
 
         volumeMounts:   
-        - mountPath: /App-Data
+        - mountPath: /usr/share/nginx/html
           name: disk-volume
 
       volumes:          

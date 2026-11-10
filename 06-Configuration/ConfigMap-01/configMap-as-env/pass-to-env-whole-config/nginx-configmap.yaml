@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: configmap-as-env
+
+data:
+  APP_ENV: "development"
+  APP_NAME: "nginx-demo"
+  APP_PORT: "80"
+  LOG_LEVEL: "debug"
+
+  nginx.conf: |
+    server {
+        listen 80;
+        server_name localhost;
+
+        location / {
+            default_type text/plain;
+            return 200 "Hello from ConfigMap NGINX!";
+        }
+
+        location /health {
+            default_type text/plain;
+            return 200 "Healthy";
+        }
+    }

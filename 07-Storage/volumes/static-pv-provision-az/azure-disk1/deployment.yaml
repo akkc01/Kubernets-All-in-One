@@ -2,11 +2,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
-  namespace: storage-demo
+  name: nginx-deployment01
+  namespace: pv-test
 
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: nginx
@@ -19,6 +19,7 @@ spec:
       containers:
         - name: nginx
           image: nginx:alpine
+
           ports:
             - containerPort: 80
           
@@ -37,4 +38,4 @@ spec:
       volumes:
         - name: azure-storage
           persistentVolumeClaim:
-            claimName: static-pvc
+            claimName: static-pvc01

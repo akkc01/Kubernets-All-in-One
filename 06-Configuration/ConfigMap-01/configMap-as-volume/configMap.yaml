@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: cv
+
+data:
+  Maneesh: "Hello Maneesh"
+  Bhawani: "Hello Bhawani"
+  APP_ENV: "Development"
+  APP_NAME: "nginx-demo"
+  APP_PORT: "80"
+  LOG_LEVEL: "debug"

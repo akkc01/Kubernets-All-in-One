@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kv-test-sa
+  namespace: kv-test
+  annotations:
+    azure.workload.identity/client-id: "e5b752c8-9b96-4e5d-a730-d9151f5e5767"
+
+

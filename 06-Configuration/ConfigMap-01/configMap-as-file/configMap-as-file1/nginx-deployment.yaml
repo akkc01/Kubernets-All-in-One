@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-volume
+  namespace: file1
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: nginx-volume
+
+  template:
+    metadata:
+      labels:
+        app: nginx-volume
+
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+
+          ports:
+            - containerPort: 80
+
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+
+          volumeMounts:
+            # Mount remaining ConfigMap keys
+            - name: app-config-volume
+              mountPath: /etc/config
+              readOnly: true
+
+            # Mount only akkc.conf
+            - name: nginx-config-volume
+              mountPath: /etc/nginx/conf/akkc.conf
+              subPath: akkc.conf
+              readOnly: true
+
+      volumes:
+        # All keys except akkc.conf
+        - name: app-config-volume
+          configMap:
+            name: nginx-config
+            items:
+              - key: Maneesh
+                path: Maneesh
+              - key: Bhawani
+                path: Bhawani
+              - key: APP_ENV
+                path: APP_ENV
+              - key: APP_NAME
+                path: APP_NAME
+              - key: APP_PORT
+                path: APP_PORT
+              - key: LOG_LEVEL
+                path: LOG_LEVEL
+
+        # Only akkc.conf
+        - name: nginx-config-volume
+          configMap:
+            name: nginx-config
+            items:
+              - key: akkc.conf
+                path: akkc.conf
+
+
+
+
+    volumeMounts:
+      - name: nginx-config-volume
+        mountPath: /etc/nginx/conf/akkc.conf
+        subPath: akkc.conf
+        readOnly: true
+
+volumes:
+  - name: nginx-config-volume
+    configMap:
+      name: nginx-config
+      items:
+        - key: akkc.conf
+          path: akkc.conf

@@ -1,10 +1,7 @@
-
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: static-pv
-  # annotations:
-  #   pv.kubernetes.io/provisioned-by: disk.csi.azure.com
+  name: static-pv01
 
 spec:
   capacity:
@@ -14,7 +11,7 @@ spec:
     - ReadWriteOnce
 
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: managed-csi
+  storageClassName: managed-csi-manish
 
   csi:
     driver: disk.csi.azure.com

@@ -1,0 +1,48 @@
+
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: kv-test-deployment
+  namespace: kv-test
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: kv-test
+
+  template:
+    metadata:
+      labels:
+        app: kv-test
+        azure.workload.identity/use: "true"
+
+    spec:
+      serviceAccountName: kv-test-sa
+
+      containers:
+        - name: app
+          image: nginx:1.27
+
+          ports:
+            - containerPort: 80
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+# it will mount the Kubernetes Secret 'kv-secret' as files inside your container.
+          volumeMounts:
+            - name: kv-secret-volume
+              mountPath: /mnt/kv-secrets
+              readOnly: true
+
+      volumes:
+        - name: kv-secret-volume
+          secret:
+            secretName: kv-secret

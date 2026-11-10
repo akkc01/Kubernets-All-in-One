@@ -1,0 +1,62 @@
+
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: kv-test-env-deployment
+  namespace: kv-test
+
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kv-test
+
+  template:
+    metadata:
+      labels:
+        app: kv-test
+        azure.workload.identity/use: "true"
+
+    spec:
+      serviceAccountName: kv-test-sa
+      containers:
+        - name: app
+          image: nginx:1.27
+
+          ports:
+            - containerPort: 80
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+
+          env:
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: kv-secret
+                  key: DB_USERNAME
+
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: kv-secret
+                  key: DB_PASSWORD
+
+          volumeMounts:
+            - name: secrets-store
+              mountPath: /mnt/secrets
+              readOnly: true
+# At least one pod need to mount the volume, so it will fetch the secrets from Azure Key Vault and create the Kubernetes Secret 'kv-secret' in the same namespace. Then you can use the Kubernetes Secret 'kv-secret' in your Pod as environment variables or mount it as a volume.
+      volumes:
+        - name: secrets-store
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: az-scp-kv-test1

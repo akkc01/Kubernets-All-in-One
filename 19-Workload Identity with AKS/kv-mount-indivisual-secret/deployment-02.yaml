@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: nginx-app
+  namespace: kv-test
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: nginx-app
+
+  template:
+    metadata:
+      labels:
+        app: nginx-app
+
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.27
+# Agar kv-secret already create ho chuka hai, toh doosre Deployment mein directly env use kar sakte hn.
+          env:
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: kv-secret
+                  key: DB_USERNAME
+
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: kv-secret
+                  key: DB_PASSWORD
+
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: kv-secret
+                  key: API_KEY
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi

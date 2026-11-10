@@ -1,17 +1,16 @@
-
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: static-pvc
-  namespace: storage-demo
+  name: static-pvc01
+  namespace: pv-test
 
 spec:
   accessModes:
     - ReadWriteOnce
 
-  storageClassName: managed-csi
+  storageClassName: managed-csi-manish # shold be same as PV storageClassName
   resources:
     requests:
       storage: 20Gi
 
-  volumeName: static-pv
+  volumeName: static-pv01 # directly bind to PV, should be same as PV name
