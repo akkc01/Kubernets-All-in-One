@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: maneesh-sa
+  namespace: maneesh
+  annotations:
+    azure.workload.identity/client-id: "edc04c88-374b-4fe3-9316-ebf505b443fb"

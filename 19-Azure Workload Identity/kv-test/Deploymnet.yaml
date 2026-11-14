@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azure-kv-demo
+  namespace: maneesh
+
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: azure-kv-demo
+
+  template:
+    metadata:
+      labels:
+        app: azure-kv-demo
+        azure.workload.identity/use: "true"
+
+    spec:
+      serviceAccountName: maneesh-sa
+      containers:
+        - name: nginx
+          image: nginx:alpine
+
+          ports:
+            - containerPort: 80
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+
+          volumeMounts:
+            - name: secrets-store
+              mountPath: "/mnt/secrets"
+              readOnly: true
+
+      volumes:
+        - name: secrets-store
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: azure-kv-provider
